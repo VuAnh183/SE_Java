@@ -1,1 +1,0 @@
-An example Angular's TypeScript component class
