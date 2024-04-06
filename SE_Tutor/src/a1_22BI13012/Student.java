@@ -17,7 +17,7 @@ import java.lang.Math;
  * mutable(phoneNumber) = true /\ optional(phoneNumber) = false /\ length = 10
  * mutable(address) = true /\ optional(address) = false /\ length = 100
  */
-public class Student {
+public class Student implements Comparable<Student>{
 	// attributes
 	@DomainConstraint(mutable = false, optional = false, min = 1, max = 10^9)
 	private int id;
@@ -160,7 +160,7 @@ public class Student {
 	@DOpt(type = OptType.Mutator) @AttrRef("address")
 	public boolean setAddress(String newAddress) {
 		if(validateAddress(newAddress)) {
-			this.name = newAddress;
+			this.address = newAddress;
 			return true;
 		} else {
 			return false;
@@ -286,5 +286,15 @@ public class Student {
 	// toString
 	public String toString() {
 		return "Student <id="+this.id+", name="+this.name+", phone="+this.phoneNumber+", address="+this.address+">";
+	}
+
+	@Override
+	public int compareTo(Student student) {
+		// TODO Auto-generated method stub
+		if(name == student.name) {
+			return 0;
+		} 
+		
+		return 1;
 	}
 }

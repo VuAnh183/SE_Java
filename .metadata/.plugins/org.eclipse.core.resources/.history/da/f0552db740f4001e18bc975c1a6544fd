@@ -4,22 +4,22 @@ import utils.*;
 import java.lang.Math;
 
 /**
- * @overview UndergradStudent represent someone who is participating in a school's course(s)
+ * @overview Student represent someone who had or is participating in a school's course(s)
  * @attributes
  * id				Integer		int
  * name				String		string 
  * phoneNumber		String		string
  * address			String		string
- * @objects a typical UndergradStudent object is s=<i, n, p, a>, where id(i), name(n), phoneNumber(p), address(a)
+ * @objects a typical Student object is s=<i, n, p, a>, where id(i), name(n), phoneNumber(p), address(a)
  * @abstract_properties
- * mutable(id) = false /\ optional(id) = false /\ P_Student.min /\ min(id) = 10^5 /\ P_Student.max /\ max(id) = 10^8
+ * mutable(id) = false /\ optional(id) = false /\ min(id) = 1 /\ max(id) = 10^9
  * mutable(name) = true /\ optional(name) = false /\ length(name) = 50
  * mutable(phoneNumber) = true /\ optional(phoneNumber) = false /\ length = 10
  * mutable(address) = true /\ optional(address) = false /\ length = 100
  */
-public class UndergradStudent extends Student{
+public class Student {
 	// attributes
-	@DomainConstraint(mutable = false, optional = false, min = 10^5, max = 10^8)
+	@DomainConstraint(mutable = false, optional = false, min = 1, max = 10^9)
 	private int id;
 	
 	@DomainConstraint(mutable = true, optional = false, length = 50)
@@ -42,14 +42,14 @@ public class UndergradStudent extends Student{
 	 * 		throw NotPossibleException
 	 * </pre>
 	 */
-	public UndergradStudent(
+	public Student(
 			@AttrRef("id") int id,
 			@AttrRef("name") String name,
 			@AttrRef("phoneNumber") String phoneNumber,
 			@AttrRef("address") String address)
 			throws NotPossibleException {
 		//TODO: check attributes validation
-		super(id, name, phoneNumber, address);
+		
 		if(!validateId(id)) {
 			throw new NotPossibleException("Invalid id!");
 		}
@@ -180,12 +180,12 @@ public class UndergradStudent extends Student{
 	public boolean validateId(int id) {
 		
 		//min
-		if(id < Math.pow(10, 5)) {
+		if(id < 1) {
 			return false;
 		}
 		
 		//max
-		if(id > Math.pow(10, 8)) {
+		if(id > Math.pow(10, 9)) {
 			return false;
 		}
 		
@@ -285,6 +285,6 @@ public class UndergradStudent extends Student{
 	
 	// toString
 	public String toString() {
-		return "UndergradStudent <id="+this.id+", name="+this.name+", phone="+this.phoneNumber+", address="+this.address+">";
+		return "Student <id="+this.id+", name="+this.name+", phone="+this.phoneNumber+", address="+this.address+">";
 	}
 }

@@ -285,6 +285,6 @@ public class UndergradStudent extends Student{
 	
 	// toString
 	public String toString() {
-		return "UndergradStudent <id="+this.id+", name="+this.name+", phone="+this.phoneNumber+", address="+this.address+">";
+		return "PostgradStudent <id="+this.id+", name="+this.name+", phone="+this.phoneNumber+", address="+this.address+">";
 	}
 }

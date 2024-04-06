@@ -10,7 +10,7 @@ import java.lang.Math;
  * name				String		string 
  * phoneNumber		String		string
  * address			String		string
- * @objects a typical UndergradStudent object is s=<i, n, p, a>, where id(i), name(n), phoneNumber(p), address(a)
+ * @objects a typical Student object is s=<i, n, p, a>, where id(i), name(n), phoneNumber(p), address(a)
  * @abstract_properties
  * mutable(id) = false /\ optional(id) = false /\ P_Student.min /\ min(id) = 10^5 /\ P_Student.max /\ max(id) = 10^8
  * mutable(name) = true /\ optional(name) = false /\ length(name) = 50
@@ -160,7 +160,7 @@ public class UndergradStudent extends Student{
 	@DOpt(type = OptType.Mutator) @AttrRef("address")
 	public boolean setAddress(String newAddress) {
 		if(validateAddress(newAddress)) {
-			this.address = newAddress;
+			this.name = newAddress;
 			return true;
 		} else {
 			return false;

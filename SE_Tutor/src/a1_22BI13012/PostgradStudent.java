@@ -4,22 +4,24 @@ import utils.*;
 import java.lang.Math;
 
 /**
- * @overview UndergradStudent represent someone who is participating in a school's course(s)
+ * @overview PostgradStudent represent someone who has graduate from school
  * @attributes
  * id				Integer		int
  * name				String		string 
  * phoneNumber		String		string
  * address			String		string
- * @objects a typical UndergradStudent object is s=<i, n, p, a>, where id(i), name(n), phoneNumber(p), address(a)
+ * gpa				Float		float
+ * @objects a typical PostgradStudent object is s=<i, n, p, a, g>, where id(i), name(n), phoneNumber(p), address(a), gpa(g)
  * @abstract_properties
- * mutable(id) = false /\ optional(id) = false /\ P_Student.min /\ min(id) = 10^5 /\ P_Student.max /\ max(id) = 10^8
+ * mutable(id) = false /\ optional(id) = false /\ P_Student.min /\ min(id) = 10^8 + 1 /\ P_Student.max /\ max(id) = 10^9
  * mutable(name) = true /\ optional(name) = false /\ length(name) = 50
  * mutable(phoneNumber) = true /\ optional(phoneNumber) = false /\ length = 10
  * mutable(address) = true /\ optional(address) = false /\ length = 100
+ * mutable(gpa) = true /\ optional(gpa) = false /\ min(gpa) = 0.0 /\ max(gpa) = 4.0
  */
-public class UndergradStudent extends Student{
+public class PostgradStudent extends Student{
 	// attributes
-	@DomainConstraint(mutable = false, optional = false, min = 10^5, max = 10^8)
+	@DomainConstraint(mutable = false, optional = false, min = 10^8 + 1, max = 10^9)
 	private int id;
 	
 	@DomainConstraint(mutable = true, optional = false, length = 50)
@@ -30,6 +32,9 @@ public class UndergradStudent extends Student{
 	
 	@DomainConstraint(mutable = true, optional = false, length = 100)
 	private String address;
+	
+	@DomainConstraint(mutable = true, optional = false, min = 0.0, max = 4.0)
+	private float gpa;
 	
 	// methods
 	// constructor
@@ -42,11 +47,12 @@ public class UndergradStudent extends Student{
 	 * 		throw NotPossibleException
 	 * </pre>
 	 */
-	public UndergradStudent(
+	public PostgradStudent(
 			@AttrRef("id") int id,
 			@AttrRef("name") String name,
 			@AttrRef("phoneNumber") String phoneNumber,
-			@AttrRef("address") String address)
+			@AttrRef("address") String address,
+			@AttrRef("gpa") float gpa)
 			throws NotPossibleException {
 		//TODO: check attributes validation
 		super(id, name, phoneNumber, address);
@@ -66,10 +72,15 @@ public class UndergradStudent extends Student{
 			throw new NotPossibleException("Invalid address!");
 		}
 		
+		if(!validateGPA(gpa)) {
+			throw new NotPossibleException("Invalid GPA");
+		}
+		
 		this.id = id;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
+		this.gpa = gpa;
 	}
 	
 	// getters 
@@ -167,6 +178,25 @@ public class UndergradStudent extends Student{
 		}
 	}
 	
+	/*
+	 * @effects <pre>
+	 * if newGPA is valid
+	 * 		set this.gpa = newGPA
+	 * 		return true
+	 * else
+	 * 		return false
+	 * </pre>
+	 */
+	@DOpt(type = OptType.Mutator) @AttrRef("gpa")
+	public boolean setGPA(float newGPA) {
+		if(validateGPA(newGPA)) {
+			this.gpa = newGPA;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	// helper - validators
 	/*
 	 * @effects <pre>
@@ -180,12 +210,12 @@ public class UndergradStudent extends Student{
 	public boolean validateId(int id) {
 		
 		//min
-		if(id < Math.pow(10, 5)) {
+		if(id < Math.pow(10, 8) + 1) {
 			return false;
 		}
 		
 		//max
-		if(id > Math.pow(10, 8)) {
+		if(id > Math.pow(10, 9)) {
 			return false;
 		}
 		
@@ -265,6 +295,30 @@ public class UndergradStudent extends Student{
 		return true;
 	}
 	
+	/*
+	 * @effects <pre>
+	 * if gpa is valid
+	 * 		return true
+	 * else
+	 * 		return false
+	 * </pre>
+	 * 
+	 */
+	public boolean validateGPA(float gpa) {
+		
+		// min
+		if(gpa < 0.0) {
+			return false;
+		}
+		
+		// max
+		if(gpa > 4.0) {
+			return false;
+		}
+		
+		return true;
+	}
+	
 	// repOK
 	/*
 	 * @effects <pre>
@@ -276,7 +330,7 @@ public class UndergradStudent extends Student{
 	 * 
 	 */
 	public boolean repOK() {
-		if(validateId(this.id) && validateName(this.name) && validatePhoneNumber(this.phoneNumber) && validateAddress(this.address)) {
+		if(validateId(this.id) && validateName(this.name) && validatePhoneNumber(this.phoneNumber) && validateAddress(this.address) && validateGPA(this.gpa)) {
 			return true;
 		} else {
 			return false;
@@ -285,6 +339,6 @@ public class UndergradStudent extends Student{
 	
 	// toString
 	public String toString() {
-		return "UndergradStudent <id="+this.id+", name="+this.name+", phone="+this.phoneNumber+", address="+this.address+">";
+		return "PostgradStudent <id="+this.id+", name="+this.name+", phone="+this.phoneNumber+", address="+this.address+", GPA="+this.gpa+">";
 	}
 }

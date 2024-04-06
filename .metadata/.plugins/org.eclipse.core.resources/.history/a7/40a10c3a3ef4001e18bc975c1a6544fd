@@ -4,20 +4,22 @@ import utils.*;
 import java.lang.Math;
 
 /**
- * @overview UndergradStudent represent someone who is participating in a school's course(s)
+ * @overview PostgradStudent represent someone who has graduate from school
  * @attributes
  * id				Integer		int
  * name				String		string 
  * phoneNumber		String		string
  * address			String		string
- * @objects a typical UndergradStudent object is s=<i, n, p, a>, where id(i), name(n), phoneNumber(p), address(a)
+ * gpa				Float		float
+ * @objects a typical PostgradStudent object is s=<i, n, p, a, g>, where id(i), name(n), phoneNumber(p), address(a), gpa(g)
  * @abstract_properties
- * mutable(id) = false /\ optional(id) = false /\ P_Student.min /\ min(id) = 10^5 /\ P_Student.max /\ max(id) = 10^8
+ * mutable(id) = false /\ optional(id) = false /\ P_Student.min /\ min(id) = 10^8 + 1 /\ P_Student.max /\ max(id) = 10^9
  * mutable(name) = true /\ optional(name) = false /\ length(name) = 50
  * mutable(phoneNumber) = true /\ optional(phoneNumber) = false /\ length = 10
  * mutable(address) = true /\ optional(address) = false /\ length = 100
+ * mutable(gpa) = true /\ optional(gpa) = false /\ min(gpa) = 0.0 /\ max(gpa) = 4.0
  */
-public class UndergradStudent extends Student{
+public class PostgradStudent extends Student{
 	// attributes
 	@DomainConstraint(mutable = false, optional = false, min = 10^5, max = 10^8)
 	private int id;
@@ -31,6 +33,8 @@ public class UndergradStudent extends Student{
 	@DomainConstraint(mutable = true, optional = false, length = 100)
 	private String address;
 	
+	@DomainConstraint(mutable)
+	private float gpa;
 	// methods
 	// constructor
 	/*
@@ -42,11 +46,12 @@ public class UndergradStudent extends Student{
 	 * 		throw NotPossibleException
 	 * </pre>
 	 */
-	public UndergradStudent(
+	public PostgradStudent(
 			@AttrRef("id") int id,
 			@AttrRef("name") String name,
 			@AttrRef("phoneNumber") String phoneNumber,
-			@AttrRef("address") String address)
+			@AttrRef("address") String address
+			@AttrRef("gpa") float gpa)
 			throws NotPossibleException {
 		//TODO: check attributes validation
 		super(id, name, phoneNumber, address);
@@ -160,7 +165,7 @@ public class UndergradStudent extends Student{
 	@DOpt(type = OptType.Mutator) @AttrRef("address")
 	public boolean setAddress(String newAddress) {
 		if(validateAddress(newAddress)) {
-			this.address = newAddress;
+			this.name = newAddress;
 			return true;
 		} else {
 			return false;
