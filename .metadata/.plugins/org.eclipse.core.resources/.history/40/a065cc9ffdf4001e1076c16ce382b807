@@ -290,30 +290,11 @@ public class Student implements Comparable<Student>{
 		}
 	}
 	
-	// equals
-	@Override
-	public boolean equals(Object student) {
-		if (
-				(student instanceof UndergradStudent) ||
-				(student instanceof PostgradStudent)) {
-			return false;
-		}
-		
-		if (!(student instanceof Student)) {
-			return false;
-		}
-		
-		int yourID = ((Student) student).id;
-		return yourID == this.id;
-	}
-	
 	// toString
-	@Override
 	public String toString() {
 		return "Student <id="+this.id+", name="+this.name+", phone="+this.phoneNumber+", address="+this.address+">";
 	}
 
-	// compareTo
 	@Override
 	public int compareTo(Student student) {
 		// TODO Auto-generated method stub

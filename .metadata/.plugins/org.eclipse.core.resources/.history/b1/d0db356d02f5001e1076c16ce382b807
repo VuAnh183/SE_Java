@@ -28,6 +28,18 @@ import java.lang.Math;
  */
 public class PostgradStudent extends Student{
 	// attributes
+	@DomainConstraint(mutable = false, optional = false, min = 10^8 + 1, max = 10^9)
+	private int id;
+	
+	@DomainConstraint(mutable = true, optional = false, length = 50)
+	private String name;
+	
+	@DomainConstraint(mutable = true, optional = false, length = 10)
+	private String phoneNumber;
+	
+	@DomainConstraint(mutable = true, optional = false, length = 100)
+	private String address;
+	
 	@DomainConstraint(mutable = true, optional = false, min = 0.0, max = 4.0)
 	private float gpa;
 	

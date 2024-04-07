@@ -8,25 +8,25 @@ import utils.OptType;
 import java.lang.Math;
 
 /**
- * @overview Student represent someone who had or is participating in a school's course(s)
+ * @overview UndergradStudent represent someone who is participating in a school's course(s)
  * @attributes
  * id				Integer		int
  * name				String		string 
  * phoneNumber		String		string
  * address			String		string
- * @objects a typical Student object is s=<i, n, p, a>, where id(i), name(n), phoneNumber(p), address(a)
+ * @objects a typical UndergradStudent object is s=<i, n, p, a>, where id(i), name(n), phoneNumber(p), address(a)
  * @abstract_properties
- * mutable(id) = false /\ optional(id) = false /\ min(id) = 1 /\ max(id) = 10^9 /\
- * mutable(name) = true /\ optional(name) = false /\ length(name) = 50 /\
- * mutable(phoneNumber) = true /\ optional(phoneNumber) = false /\ length = 10 /\
- * mutable(address) = true /\ optional(address) = false /\ length = 100 /\
+ * P_Student.id /\ min(id) = 10^5 /\ max(id) = 10^8 /\
+ * P_Student.name /\
+ * P_Student.phoneNumber /\
+ * P_Student.address /\
  * 
  * @author VuAnh_183
  * 		https://github.com/VuAnh183/SE_Java
  */
-public class Student implements Comparable<Student>{
+public class UndergradStudent extends Student{
 	// attributes
-	@DomainConstraint(mutable = false, optional = false, min = 1, max = 10^9)
+	@DomainConstraint(mutable = false, optional = false, min = 10^5, max = 10^8)
 	private int id;
 	
 	@DomainConstraint(mutable = true, optional = false, length = 50)
@@ -49,14 +49,14 @@ public class Student implements Comparable<Student>{
 	 * 		throw NotPossibleException
 	 * </pre>
 	 */
-	public Student(
+	public UndergradStudent(
 			@AttrRef("id") int id,
 			@AttrRef("name") String name,
 			@AttrRef("phoneNumber") String phoneNumber,
 			@AttrRef("address") String address)
 			throws NotPossibleException {
 		//TODO: check attributes validation
-		
+		super(id, name, phoneNumber, address);
 		if(!validateId(id)) {
 			throw new NotPossibleException("Invalid id!");
 		}
@@ -187,12 +187,12 @@ public class Student implements Comparable<Student>{
 	public boolean validateId(int id) {
 		
 		//min
-		if(id < 1) {
+		if(id < Math.pow(10, 5)) {
 			return false;
 		}
 		
 		//max
-		if(id > Math.pow(10, 9)) {
+		if(id > Math.pow(10, 8)) {
 			return false;
 		}
 		
@@ -290,37 +290,9 @@ public class Student implements Comparable<Student>{
 		}
 	}
 	
-	// equals
-	@Override
-	public boolean equals(Object student) {
-		if (
-				(student instanceof UndergradStudent) ||
-				(student instanceof PostgradStudent)) {
-			return false;
-		}
-		
-		if (!(student instanceof Student)) {
-			return false;
-		}
-		
-		int yourID = ((Student) student).id;
-		return yourID == this.id;
-	}
-	
 	// toString
 	@Override
 	public String toString() {
-		return "Student <id="+this.id+", name="+this.name+", phone="+this.phoneNumber+", address="+this.address+">";
-	}
-
-	// compareTo
-	@Override
-	public int compareTo(Student student) {
-		// TODO Auto-generated method stub
-		if(this.name.compareTo(student.name) != 0) {
-			return this.name.compareTo(student.name);
-		} else {
-			return Integer.compare(this.id, student.id);
-		}
+		return "UndergradStudent <id="+this.id+", name="+this.name+", phone="+this.phoneNumber+", address="+this.address+">";
 	}
 }

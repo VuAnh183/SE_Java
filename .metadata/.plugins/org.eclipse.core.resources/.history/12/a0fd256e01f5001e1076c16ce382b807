@@ -28,6 +28,18 @@ import java.lang.Math;
  */
 public class PostgradStudent extends Student{
 	// attributes
+	@DomainConstraint(mutable = false, optional = false, min = 10^8 + 1, max = 10^9)
+	private int id;
+	
+	@DomainConstraint(mutable = true, optional = false, length = 50)
+	private String name;
+	
+	@DomainConstraint(mutable = true, optional = false, length = 10)
+	private String phoneNumber;
+	
+	@DomainConstraint(mutable = true, optional = false, length = 100)
+	private String address;
+	
 	@DomainConstraint(mutable = true, optional = false, min = 0.0, max = 4.0)
 	private float gpa;
 	
@@ -122,6 +134,78 @@ public class PostgradStudent extends Student{
 	
 	/*
 	 * @effects <pre>
+	 * if name is valid
+	 * 		return true
+	 * else
+	 * 		return false
+	 * </pre>
+	 * 
+	 */
+	public boolean validateName(String name) {
+		
+		// optional
+		if(name == null || name.length() == 0) {
+			return false;
+		}
+		
+		// length
+		if(name.length() > 50) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	/*
+	 * @effects <pre>
+	 * if phoneNumber is valid
+	 * 		return true
+	 * else
+	 * 		return false
+	 * </pre>
+	 * 
+	 */
+	public boolean validatePhoneNumber(String phoneNumber) {
+		
+		// optional
+		if(phoneNumber == null || phoneNumber.length() == 0) {
+			return false;
+		}
+		
+		// length
+		if(phoneNumber.length() > 10) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	/*
+	 * @effects <pre>
+	 * if address is valid
+	 * 		return true
+	 * else
+	 * 		return false
+	 * </pre>
+	 * 
+	 */
+	public boolean validateAddress(String address) {
+		
+		// optional
+		if(address == null || address.length() == 0) {
+			return false;
+		}
+		
+		// length
+		if(address.length() > 100) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	/*
+	 * @effects <pre>
 	 * if gpa is valid
 	 * 		return true
 	 * else
@@ -155,23 +239,15 @@ public class PostgradStudent extends Student{
 	 * 
 	 */
 	public boolean repOK() {
-		return super.repOK() && validateGPA(gpa);
+		if(validateId(this.id) && validateName(this.name) && validatePhoneNumber(this.phoneNumber) && validateAddress(this.address) && validateGPA(this.gpa)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	// toString
 	public String toString() {
-		String temp = super.toString();
-		return "Postgrad" + temp;
-	}
-	
-	// equals
-	@Override
-	public boolean equals(Object student) {
-		if (!(student instanceof PostgradStudent)) {
-			return false;
-		}
-		
-		int yourID = ((Student) student).getId();
-		return yourID == this.getId();
+		return "PostgradStudent <id="+this.id+", name="+this.name+", phone="+this.phoneNumber+", address="+this.address+", GPA="+this.gpa+">";
 	}
 }

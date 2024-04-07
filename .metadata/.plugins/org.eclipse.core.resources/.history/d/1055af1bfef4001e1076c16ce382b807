@@ -292,7 +292,7 @@ public class Student implements Comparable<Student>{
 	
 	// equals
 	@Override
-	public boolean equals(Object student) {
+	public boolean equals(Student student) {
 		if (
 				(student instanceof UndergradStudent) ||
 				(student instanceof PostgradStudent)) {
@@ -303,8 +303,8 @@ public class Student implements Comparable<Student>{
 			return false;
 		}
 		
-		int yourID = ((Student) student).id;
-		return yourID == this.id;
+		int yourId = ((Student) student).id;
+		return yourId == this.id;
 	}
 	
 	// toString

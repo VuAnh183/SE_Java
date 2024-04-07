@@ -1,8 +1,10 @@
 package a1_22BI13012;
 
 import utils.AttrRef;
+import utils.DOpt;
 import utils.DomainConstraint;
 import utils.NotPossibleException;
+import utils.OptType;
 import java.lang.Math;
 
 /**
@@ -86,7 +88,6 @@ public class UndergradStudent extends Student{
 	}
 	
 	//equals
-	@Override
 	public boolean equals(Object student) {
 		if(!(student instanceof UndergradStudent)) {
 			return false;

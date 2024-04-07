@@ -8,25 +8,26 @@ import utils.OptType;
 import java.lang.Math;
 
 /**
- * @overview Student represent someone who had or is participating in a school's course(s)
+ * @overview PostgradStudent represent someone who has graduate from school
  * @attributes
  * id				Integer		int
  * name				String		string 
  * phoneNumber		String		string
  * address			String		string
- * @objects a typical Student object is s=<i, n, p, a>, where id(i), name(n), phoneNumber(p), address(a)
+ * gpa				Float		float
+ * @objects a typical PostgradStudent object is s=<i, n, p, a, g>, where id(i), name(n), phoneNumber(p), address(a), gpa(g)
  * @abstract_properties
- * mutable(id) = false /\ optional(id) = false /\ min(id) = 1 /\ max(id) = 10^9 /\
- * mutable(name) = true /\ optional(name) = false /\ length(name) = 50 /\
- * mutable(phoneNumber) = true /\ optional(phoneNumber) = false /\ length = 10 /\
- * mutable(address) = true /\ optional(address) = false /\ length = 100 /\
+ * P_Student.id /\ min(id) = 10^8 + 1 /\ max(id) = 10^9 /\
+ * P_Student.name /\
+ * P_Student.phoneNumber /\
+ * P_Student.address /\
+ * mutable(gpa) = true /\ optional(gpa) = false /\ min(gpa) = 0.0 /\ max(gpa) = 4.0 /\
  * 
  * @author VuAnh_183
- * 		https://github.com/VuAnh183/SE_Java
  */
-public class Student implements Comparable<Student>{
+public class PostgradStudent extends Student{
 	// attributes
-	@DomainConstraint(mutable = false, optional = false, min = 1, max = 10^9)
+	@DomainConstraint(mutable = false, optional = false, min = 10^8 + 1, max = 10^9)
 	private int id;
 	
 	@DomainConstraint(mutable = true, optional = false, length = 50)
@@ -37,6 +38,9 @@ public class Student implements Comparable<Student>{
 	
 	@DomainConstraint(mutable = true, optional = false, length = 100)
 	private String address;
+	
+	@DomainConstraint(mutable = true, optional = false, min = 0.0, max = 4.0)
+	private float gpa;
 	
 	// methods
 	// constructor
@@ -49,14 +53,15 @@ public class Student implements Comparable<Student>{
 	 * 		throw NotPossibleException
 	 * </pre>
 	 */
-	public Student(
+	public PostgradStudent(
 			@AttrRef("id") int id,
 			@AttrRef("name") String name,
 			@AttrRef("phoneNumber") String phoneNumber,
-			@AttrRef("address") String address)
+			@AttrRef("address") String address,
+			@AttrRef("gpa") float gpa)
 			throws NotPossibleException {
 		//TODO: check attributes validation
-		
+		super(id, name, phoneNumber, address);
 		if(!validateId(id)) {
 			throw new NotPossibleException("Invalid id!");
 		}
@@ -73,10 +78,15 @@ public class Student implements Comparable<Student>{
 			throw new NotPossibleException("Invalid address!");
 		}
 		
+		if(!validateGPA(gpa)) {
+			throw new NotPossibleException("Invalid GPA");
+		}
+		
 		this.id = id;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
+		this.gpa = gpa;
 	}
 	
 	// getters 
@@ -174,6 +184,25 @@ public class Student implements Comparable<Student>{
 		}
 	}
 	
+	/*
+	 * @effects <pre>
+	 * if newGPA is valid
+	 * 		set this.gpa = newGPA
+	 * 		return true
+	 * else
+	 * 		return false
+	 * </pre>
+	 */
+	@DOpt(type = OptType.Mutator) @AttrRef("gpa")
+	public boolean setGPA(float newGPA) {
+		if(validateGPA(newGPA)) {
+			this.gpa = newGPA;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	// helper - validators
 	/*
 	 * @effects <pre>
@@ -187,7 +216,7 @@ public class Student implements Comparable<Student>{
 	public boolean validateId(int id) {
 		
 		//min
-		if(id < 1) {
+		if(id < Math.pow(10, 8) + 1) {
 			return false;
 		}
 		
@@ -272,6 +301,30 @@ public class Student implements Comparable<Student>{
 		return true;
 	}
 	
+	/*
+	 * @effects <pre>
+	 * if gpa is valid
+	 * 		return true
+	 * else
+	 * 		return false
+	 * </pre>
+	 * 
+	 */
+	public boolean validateGPA(float gpa) {
+		
+		// min
+		if(gpa < 0.0) {
+			return false;
+		}
+		
+		// max
+		if(gpa > 4.0) {
+			return false;
+		}
+		
+		return true;
+	}
+	
 	// repOK
 	/*
 	 * @effects <pre>
@@ -283,44 +336,15 @@ public class Student implements Comparable<Student>{
 	 * 
 	 */
 	public boolean repOK() {
-		if(validateId(this.id) && validateName(this.name) && validatePhoneNumber(this.phoneNumber) && validateAddress(this.address)) {
+		if(validateId(this.id) && validateName(this.name) && validatePhoneNumber(this.phoneNumber) && validateAddress(this.address) && validateGPA(this.gpa)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	// equals
-	@Override
-	public boolean equals(Object student) {
-		if (
-				(student instanceof UndergradStudent) ||
-				(student instanceof PostgradStudent)) {
-			return false;
-		}
-		
-		if (!(student instanceof Student)) {
-			return false;
-		}
-		
-		int yourID = ((Student) student).id;
-		return yourID == this.id;
-	}
-	
 	// toString
-	@Override
 	public String toString() {
-		return "Student <id="+this.id+", name="+this.name+", phone="+this.phoneNumber+", address="+this.address+">";
-	}
-
-	// compareTo
-	@Override
-	public int compareTo(Student student) {
-		// TODO Auto-generated method stub
-		if(this.name.compareTo(student.name) != 0) {
-			return this.name.compareTo(student.name);
-		} else {
-			return Integer.compare(this.id, student.id);
-		}
+		return "PostgradStudent <id="+this.id+", name="+this.name+", phone="+this.phoneNumber+", address="+this.address+", GPA="+this.gpa+">";
 	}
 }

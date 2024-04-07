@@ -27,9 +27,6 @@ import java.lang.Math;
  * 		https://github.com/VuAnh183/SE_Java
  */
 public class PostgradStudent extends Student{
-	// attributes
-	@DomainConstraint(mutable = true, optional = false, min = 0.0, max = 4.0)
-	private float gpa;
 	
 	// methods
 	// constructor

@@ -22,7 +22,7 @@ import java.lang.Math;
  * mutable(address) = true /\ optional(address) = false /\ length = 100 /\
  * 
  * @author VuAnh_183
- * 		https://github.com/VuAnh183/SE_Java
+ * 		
  */
 public class Student implements Comparable<Student>{
 	// attributes
@@ -290,30 +290,11 @@ public class Student implements Comparable<Student>{
 		}
 	}
 	
-	// equals
-	@Override
-	public boolean equals(Object student) {
-		if (
-				(student instanceof UndergradStudent) ||
-				(student instanceof PostgradStudent)) {
-			return false;
-		}
-		
-		if (!(student instanceof Student)) {
-			return false;
-		}
-		
-		int yourID = ((Student) student).id;
-		return yourID == this.id;
-	}
-	
 	// toString
-	@Override
 	public String toString() {
 		return "Student <id="+this.id+", name="+this.name+", phone="+this.phoneNumber+", address="+this.address+">";
 	}
 
-	// compareTo
 	@Override
 	public int compareTo(Student student) {
 		// TODO Auto-generated method stub
