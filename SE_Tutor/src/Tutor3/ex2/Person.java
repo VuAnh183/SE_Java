@@ -1,4 +1,4 @@
-package Tutor1;
+package Tutor3.ex2;
 
 import utils.*;
 
@@ -14,7 +14,7 @@ import utils.*;
  * mutable(name) = true /\ optional(name) = false /\ length(name) = 30 /\
  * mutable(phone) = true /\ optional(phone) = true /\
  */ 
-public class Person {
+public class Person implements Comparable<Person>{
 	// state space - attributes
 	@DomainConstraint(mutable = false, optional = false, min = 1)
 	private int id;
@@ -205,5 +205,23 @@ public class Person {
 	// toString 
 	public String toString() {
 		return "Person <id="+this.id+", name="+this.name+", phone="+this.phone+">";
+	}
+	
+	@Override
+	public int compareTo(Person p) {
+		// TODO Auto-generated method stub
+		// < return -1
+		// = return 0 
+		// > return 1
+		
+//		if (this.id <p.id) {
+//			return -1;
+//		} else if (this.id == p.id) {
+//			return 0;
+//		} else {
+//			return 1;
+//		}
+		
+		return this.name.compareTo(p.name);
 	}
 }

@@ -1,4 +1,4 @@
-package Tutor1;
+package Tutor3.ex2;
 
 import utils.*;
 /**
