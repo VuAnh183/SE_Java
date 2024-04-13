@@ -5,7 +5,6 @@ import utils.DOpt;
 import utils.DomainConstraint;
 import utils.NotPossibleException;
 import utils.OptType;
-import java.lang.Math;
 
 /**
  * @overview Student represent someone who had or is participating in a school's course(s)
@@ -25,28 +24,40 @@ import java.lang.Math;
  * 		https://github.com/VuAnh183/SE_Java
  */
 public class Student implements Comparable<Student>{
+	
+	// constants
+	private static final int MIN_ID = 1;
+
+	private static final int MAX_ID = (int) 10e9;
+
+	private static final int LEN_NAME = 50;
+
+	private static final int LEN_PHONENUMBER = 10;
+
+	private static final int LEN_ADDRESS = 100;
+
 	// attributes
-	@DomainConstraint(mutable = false, optional = false, min = 1, max = 10^9)
+	@DomainConstraint(mutable = false, optional = false, min = MIN_ID, max = MAX_ID)
 	private int id;
 	
-	@DomainConstraint(mutable = true, optional = false, length = 50)
+	@DomainConstraint(mutable = true, optional = false, length = LEN_NAME)
 	private String name;
 	
-	@DomainConstraint(mutable = true, optional = false, length = 10)
+	@DomainConstraint(mutable = true, optional = false, length = LEN_PHONENUMBER)
 	private String phoneNumber;
 	
-	@DomainConstraint(mutable = true, optional = false, length = 100)
+	@DomainConstraint(mutable = true, optional = false, length = LEN_ADDRESS)
 	private String address;
 	
 	// methods
 	// constructor
-	/*
+	/**
 	 * @modifies this.id, this.name, this.phoneNumber, this.address
 	 * @effects <pre>
 	 * if id, name, phoneNumber, address are valid
-	 * 		initialize this as <id, name, phoneNumber, address>
+	 * 		initialize this as (id, name, phoneNumber, address)
 	 * else
-	 * 		throw NotPossibleException
+	 * 		throws new NotPossibleException
 	 * </pre>
 	 */
 	public Student(
@@ -79,17 +90,17 @@ public class Student implements Comparable<Student>{
 		this.address = address;
 	}
 	
-	// getters 
-	/*
-	 * @effect return this.id 
+	// getters - observers
+	/**
+	 * @effect return <tt>id</tt> 
 	 */
 	@DOpt(type = OptType.Observer) @AttrRef("id")
 	public int getId() {
 		return this.id;
 	}
 	
-	/*
-	 * @effect return this.name 
+	/**
+	 * @effect return <tt>name</tt>
 	 */
 	@DOpt(type = OptType.Observer) @AttrRef("name")
 	public String getName() {
@@ -97,8 +108,8 @@ public class Student implements Comparable<Student>{
 		
 	}
 	
-	/*
-	 * @effect return this.phoneNubmer 
+	/**
+	 * @effect return <tt>phoneNumber</tt> 
 	 */
 	@DOpt(type = OptType.Observer) @AttrRef("phoneNumber")
 	public String getPhoneNumber() {
@@ -106,8 +117,8 @@ public class Student implements Comparable<Student>{
 		
 	}
 	
-	/*
-	 * @effect return this.address 
+	/**
+	 * @effect return <tt>address</tt> 
 	 */
 	@DOpt(type = OptType.Observer) @AttrRef("address")
 	public String getAddress() {
@@ -116,8 +127,9 @@ public class Student implements Comparable<Student>{
 	}
 	
 	
-	//setters
-	/*
+	//setters - mutators
+	/**
+	 * @modifies this.name
 	 * @effects <pre>
 	 * if newName is valid
 	 * 		set this.name = newName
@@ -136,7 +148,8 @@ public class Student implements Comparable<Student>{
 		}
 	}
 	
-	/*
+	/**
+	 * @modifies this.phoneNumber
 	 * @effects <pre>
 	 * if newphoneNumber is valid
 	 * 		set this.phoneNumber = newphoneNumber
@@ -155,7 +168,8 @@ public class Student implements Comparable<Student>{
 		}
 	}
 	
-	/*
+	/**
+	 * @modifies this.address
 	 * @effects <pre>
 	 * if newAddress is valid
 	 * 		set this.address = newAddress
@@ -175,7 +189,7 @@ public class Student implements Comparable<Student>{
 	}
 	
 	// helper - validators
-	/*
+	/**
 	 * @effects <pre>
 	 * if id is valid
 	 * 		return true
@@ -187,12 +201,12 @@ public class Student implements Comparable<Student>{
 	public boolean validateId(int id) {
 		
 		//min
-		if(id < 1) {
+		if(id < MIN_ID) {
 			return false;
 		}
 		
 		//max
-		if(id > Math.pow(10, 9)) {
+		if(id > MAX_ID) {
 			return false;
 		}
 		
@@ -200,7 +214,7 @@ public class Student implements Comparable<Student>{
 		
 	}
 	
-	/*
+	/**
 	 * @effects <pre>
 	 * if name is valid
 	 * 		return true
@@ -217,14 +231,14 @@ public class Student implements Comparable<Student>{
 		}
 		
 		// length
-		if(name.length() > 50) {
+		if(name.length() > LEN_NAME) {
 			return false;
 		}
 		
 		return true;
 	}
 	
-	/*
+	/**
 	 * @effects <pre>
 	 * if phoneNumber is valid
 	 * 		return true
@@ -241,14 +255,14 @@ public class Student implements Comparable<Student>{
 		}
 		
 		// length
-		if(phoneNumber.length() > 10) {
+		if(phoneNumber.length() > LEN_PHONENUMBER) {
 			return false;
 		}
 		
 		return true;
 	}
 	
-	/*
+	/**
 	 * @effects <pre>
 	 * if address is valid
 	 * 		return true
@@ -265,7 +279,7 @@ public class Student implements Comparable<Student>{
 		}
 		
 		// length
-		if(address.length() > 100) {
+		if(address.length() > LEN_ADDRESS) {
 			return false;
 		}
 		
@@ -273,7 +287,7 @@ public class Student implements Comparable<Student>{
 	}
 	
 	// repOK
-	/*
+	/**
 	 * @effects <pre>
 	 * if this satisfies abstract properties
 	 * 		return true
@@ -308,6 +322,7 @@ public class Student implements Comparable<Student>{
 	}
 	
 	// toString
+	@DOpt(type = OptType.Default) 
 	@Override
 	public String toString() {
 		return "Student <id="+this.id+", name="+this.name+", phone="+this.phoneNumber+", address="+this.address+">";
@@ -317,10 +332,16 @@ public class Student implements Comparable<Student>{
 	@Override
 	public int compareTo(Student student) {
 		// TODO Auto-generated method stub
-		if(this.name.compareTo(student.name) != 0) {
-			return this.name.compareTo(student.name);
-		} else {
-			return Integer.compare(this.id, student.id);
-		}
+		// This code was marked wrong definition
+		// Compare names
+//		if(this.name.compareTo(student.name) != 0) {
+//			return this.name.compareTo(student.name);
+//		} else {
+		// Compare their ids if names are identical 
+//			return Integer.compare(this.id, student.id);
+//		}
+		
+		// Code being demonstrated in practical class
+		return this.name.compareTo(student.name);
 	}
 }

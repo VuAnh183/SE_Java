@@ -1,9 +1,10 @@
 package a1_22BI13012;
 
 import utils.AttrRef;
+import utils.DOpt;
 import utils.DomainConstraint;
 import utils.NotPossibleException;
-import java.lang.Math;
+import utils.OptType;
 
 /**
  * @overview UndergradStudent represent someone who is participating in a school's course(s)
@@ -24,15 +25,22 @@ import java.lang.Math;
  */
 public class UndergradStudent extends Student{
 	
+	// constants
+	private static final int MIN_ID = (int) 10e5;
+	
+	private static final int MAX_ID = (int) 10e8;
+
+	
+	
 	// methods
 	// constructor
-	/*
+	/**
 	 * @modifies this.id, this.name, this.phoneNumber, this.address
 	 * @effects <pre>
 	 * if id, name, phoneNumber, address are valid
-	 * 		initialize this as <id, name, phoneNumber, address>
+	 * 		initialize this as (id, name, phoneNumber, address)
 	 * else
-	 * 		throw NotPossibleException
+	 * 		throws new NotPossibleException
 	 * </pre>
 	 */
 	public UndergradStudent(
@@ -51,7 +59,7 @@ public class UndergradStudent extends Student{
 	
 	
 	// helper - validators
-	/*
+	/**
 	 * @effects <pre>
 	 * if id is valid
 	 * 		return true
@@ -61,16 +69,16 @@ public class UndergradStudent extends Student{
 	 * 
 	 */
 	@Override
-	@DomainConstraint(mutable = false, optional = false, min = 10^5, max = 10^8)
+	@DomainConstraint(mutable = false, optional = false, min = MIN_ID, max = MAX_ID)
 	public boolean validateId(int id) {
 		
 		//min
-		if(id < Math.pow(10, 5)) {
+		if(id < MIN_ID) {
 			return false;
 		}
 		
 		//max
-		if(id > Math.pow(10, 8)) {
+		if(id > MAX_ID) {
 			return false;
 		}
 		
@@ -79,6 +87,7 @@ public class UndergradStudent extends Student{
 	}
 	
 	// toString
+	@DOpt(type = OptType.Default) 
 	@Override
 	public String toString() {
 		String temp = super.toString();

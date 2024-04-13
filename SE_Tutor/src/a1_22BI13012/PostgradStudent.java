@@ -27,19 +27,25 @@ import java.lang.Math;
  * 		https://github.com/VuAnh183/SE_Java
  */
 public class PostgradStudent extends Student{
+	
+	// constants
+	private static final int MIN_ID = (int) 10e8 + 1;
+
+	private static final int MAX_ID = (int) 10e9;
+	
 	// attributes
 	@DomainConstraint(mutable = true, optional = false, min = 0.0, max = 4.0)
 	private float gpa;
 	
 	// methods
 	// constructor
-	/*
+	/**
 	 * @modifies this.id, this.name, this.phoneNumber, this.address
 	 * @effects <pre>
 	 * if id, name, phoneNumber, address are valid
-	 * 		initialize this as <id, name, phoneNumber, address>
+	 * 		initialize this as (id, name, phoneNumber, address)
 	 * else
-	 * 		throw NotPossibleException
+	 * 		throws new NotPossibleException
 	 * </pre>
 	 */
 	public PostgradStudent(
@@ -62,9 +68,9 @@ public class PostgradStudent extends Student{
 		this.gpa = gpa;
 	}
 	
-	// getters 
-	/*
-	 * @effect return this.gpa
+	// getters - observers
+	/**
+	 * @effect return <tt>gpa</tt>
 	 */
 	@DOpt(type = OptType.Observer) @AttrRef("gpa")
 	public float getGPA() {
@@ -72,8 +78,9 @@ public class PostgradStudent extends Student{
 	
 	}	
 	
-	//setters
-	/*
+	//setters - mutators
+	/**
+	 * @modifies this.gpa
 	 * @effects <pre>
 	 * if newGPA is valid
 	 * 		set this.gpa = newGPA
@@ -93,7 +100,7 @@ public class PostgradStudent extends Student{
 	}
 	
 	// helper - validators
-	/*
+	/**
 	 * @effects <pre>
 	 * if id is valid
 	 * 		return true
@@ -103,7 +110,7 @@ public class PostgradStudent extends Student{
 	 * 
 	 */
 	@Override
-	@DomainConstraint(mutable = false, optional = false, min = 10^8 + 1, max = 10^9)
+	@DomainConstraint(mutable = false, optional = false, min = MIN_ID, max = MAX_ID)
 	public boolean validateId(int id) {
 		
 		//min
@@ -120,7 +127,7 @@ public class PostgradStudent extends Student{
 		
 	}
 	
-	/*
+	/**
 	 * @effects <pre>
 	 * if gpa is valid
 	 * 		return true
@@ -145,7 +152,7 @@ public class PostgradStudent extends Student{
 	}
 	
 	// repOK
-	/*
+	/**
 	 * @effects <pre>
 	 * if this satisfies abstract properties
 	 * 		return true
@@ -155,13 +162,17 @@ public class PostgradStudent extends Student{
 	 * 
 	 */
 	public boolean repOK() {
-		return super.repOK() && validateGPA(gpa);
+		return super.repOK() && validateGPA(this.gpa);
 	}
 	
 	// toString
+	@DOpt(type = OptType.Default) 
+	@Override
 	public String toString() {
 		String temp = super.toString();
-		return "Postgrad" + temp;
+		return "Postgrad" + 
+				temp.substring(0, temp.length() - 1)
+				+ ", " + gpa + ">";
 	}
 	
 	// equals
