@@ -28,11 +28,6 @@ import java.lang.Math;
  */
 public class PostgradStudent extends Student{
 	
-	// constants
-	private static final int MIN_ID = (int) 10e8 + 1;
-
-	private static final int MAX_ID = (int) 10e9;
-	
 	// attributes
 	@DomainConstraint(mutable = true, optional = false, min = 0.0, max = 4.0)
 	private float gpa;
@@ -110,7 +105,7 @@ public class PostgradStudent extends Student{
 	 * 
 	 */
 	@Override
-	@DomainConstraint(mutable = false, optional = false, min = MIN_ID, max = MAX_ID)
+	@DomainConstraint(mutable = false, optional = false, min = 10e8 + 1, max = 10e9)
 	public boolean validateId(int id) {
 		
 		//min

@@ -25,13 +25,6 @@ import utils.OptType;
  */
 public class UndergradStudent extends Student{
 	
-	// constants
-	private static final int MIN_ID = (int) 10e5;
-	
-	private static final int MAX_ID = (int) 10e8;
-
-	
-	
 	// methods
 	// constructor
 	/**
@@ -69,16 +62,16 @@ public class UndergradStudent extends Student{
 	 * 
 	 */
 	@Override
-	@DomainConstraint(mutable = false, optional = false, min = MIN_ID, max = MAX_ID)
+	@DomainConstraint(mutable = false, optional = false, min = 10e5, max = 10e8)
 	public boolean validateId(int id) {
 		
 		//min
-		if(id < MIN_ID) {
+		if(id < 10e5) {
 			return false;
 		}
 		
 		//max
-		if(id > MAX_ID) {
+		if(id > 10e8) {
 			return false;
 		}
 		

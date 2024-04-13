@@ -23,30 +23,18 @@ import utils.OptType;
  * @author VuAnh_183
  * 		https://github.com/VuAnh183/SE_Java
  */
-public class Student implements Comparable<Student>{
-	
-	// constants
-	private static final int MIN_ID = 1;
-
-	private static final int MAX_ID = (int) 10e9;
-
-	private static final int LEN_NAME = 50;
-
-	private static final int LEN_PHONENUMBER = 10;
-
-	private static final int LEN_ADDRESS = 100;
-
+public class Student implements Comparable{
 	// attributes
-	@DomainConstraint(mutable = false, optional = false, min = MIN_ID, max = MAX_ID)
+	@DomainConstraint(mutable = false, optional = false, min = 1, max = 10e9)
 	private int id;
 	
-	@DomainConstraint(mutable = true, optional = false, length = LEN_NAME)
+	@DomainConstraint(mutable = true, optional = false, length = 50)
 	private String name;
 	
-	@DomainConstraint(mutable = true, optional = false, length = LEN_PHONENUMBER)
+	@DomainConstraint(mutable = true, optional = false, length = 10)
 	private String phoneNumber;
 	
-	@DomainConstraint(mutable = true, optional = false, length = LEN_ADDRESS)
+	@DomainConstraint(mutable = true, optional = false, length = 100)
 	private String address;
 	
 	// methods
@@ -201,12 +189,12 @@ public class Student implements Comparable<Student>{
 	public boolean validateId(int id) {
 		
 		//min
-		if(id < MIN_ID) {
+		if(id < 1) {
 			return false;
 		}
 		
 		//max
-		if(id > MAX_ID) {
+		if(id > (int) (Math.pow(10, 9))) {
 			return false;
 		}
 		
@@ -231,7 +219,7 @@ public class Student implements Comparable<Student>{
 		}
 		
 		// length
-		if(name.length() > LEN_NAME) {
+		if(name.length() > 50) {
 			return false;
 		}
 		
@@ -255,7 +243,7 @@ public class Student implements Comparable<Student>{
 		}
 		
 		// length
-		if(phoneNumber.length() > LEN_PHONENUMBER) {
+		if(phoneNumber.length() > 10) {
 			return false;
 		}
 		
@@ -279,7 +267,7 @@ public class Student implements Comparable<Student>{
 		}
 		
 		// length
-		if(address.length() > LEN_ADDRESS) {
+		if(address.length() > 100) {
 			return false;
 		}
 		
@@ -330,18 +318,15 @@ public class Student implements Comparable<Student>{
 
 	// compareTo
 	@Override
-	public int compareTo(Student student) {
+	public int compareTo(Object o) throws 
+	NullPointerException, ClassCastException{
 		// TODO Auto-generated method stub
-		// This code was marked wrong definition
-		// Compare names
-//		if(this.name.compareTo(student.name) != 0) {
-//			return this.name.compareTo(student.name);
-//		} else {
-		// Compare their ids if names are identical 
-//			return Integer.compare(this.id, student.id);
-//		}
+		 if (o == null)
+		      throw new NullPointerException("Student.compareByName");
+		    else if (!(o instanceof Student))
+		      throw new ClassCastException("Student.compareByName: not a Student " + o);
 		
-		// Code being demonstrated in practical class
-		return this.name.compareTo(student.name);
+		 Student s = (Student) o;
+		return this.name.compareTo(s.name);
 	}
 }

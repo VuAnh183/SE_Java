@@ -1,4 +1,3 @@
-INDEX VERSION 1.134+C:\Users\Dinh Vu Anh\OneDrive\Github\SE_Java\.metadata\.plugins\org.eclipse.jdt.core
+INDEX VERSION 1.134+C:\Users\admin\OneDrive\Github\SE_Java\.metadata\.plugins\org.eclipse.jdt.core
 1865797976.index
-3704171588.index
 3413270776.index
