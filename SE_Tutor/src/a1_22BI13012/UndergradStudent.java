@@ -20,7 +20,7 @@ import utils.OptType;
  * P_Student.phoneNumber /\
  * P_Student.address /\
  * 
- * @author VuAnh_183
+ * @author Dinh Vu Anh
  * 		https://github.com/VuAnh183/SE_Java
  */
 public class UndergradStudent extends Student{

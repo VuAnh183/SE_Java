@@ -10,9 +10,9 @@
 	<section name="PropertyDialog.dialogBounds">
 		<item key="DIALOG_X_ORIGIN" value="538"/>
 		<item key="DIALOG_Y_ORIGIN" value="134"/>
-		<item key="DIALOG_WIDTH" value="988"/>
-		<item key="DIALOG_HEIGHT" value="895"/>
-		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+		<item key="DIALOG_WIDTH" value="801"/>
+		<item key="DIALOG_HEIGHT" value="556"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
 	</section>
 	<section name="ImportExportAction">
 		<item key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID" value="org.eclipse.ui.wizards.import.FileSystem"/>
@@ -26,15 +26,16 @@
 		<item key="WizardFileSystemResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID" value="false"/>
 		<item key="WizardFileSystemResourceImportPage1.STORE_CREATE_CONTAINER_STRUCTURE_ID" value="false"/>
 		<list key="WizardFileSystemResourceImportPage1.STORE_SOURCE_NAMES_ID">
+			<item value="C:\Users\Dinh Vu Anh\OneDrive\Documents\Software_Engineering\oopd-java-main\src\utils"/>
 			<item value="C:\Users\admin\OneDrive\Github\SE_Java\SE_Tutor\src\Tutor1"/>
 			<item value="C:\Users\Dinh Vu Anh\Downloads\a1_22BI13447\a1_22BI13447"/>
 		</list>
 		<section name="FileSystemImportWizard.dialogBounds">
-			<item key="DIALOG_X_ORIGIN" value="603"/>
-			<item key="DIALOG_Y_ORIGIN" value="142"/>
-			<item key="DIALOG_WIDTH" value="805"/>
-			<item key="DIALOG_HEIGHT" value="703"/>
-			<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+			<item key="DIALOG_X_ORIGIN" value="605"/>
+			<item key="DIALOG_Y_ORIGIN" value="386"/>
+			<item key="DIALOG_WIDTH" value="623"/>
+			<item key="DIALOG_HEIGHT" value="620"/>
+			<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
 		</section>
 	</section>
 </section>

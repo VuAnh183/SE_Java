@@ -21,5 +21,11 @@ public class Test{
 		// sorts
 		Collections.sort(students);
 		System.out.println(students);
+		
+		System.out.println(VuAnh4);
+		VuAnh4.setGPA((float) 4.0);
+		System.out.println(VuAnh4.getGPA());
+		
+		
 	}
 }

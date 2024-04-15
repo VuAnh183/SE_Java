@@ -23,7 +23,7 @@ import java.lang.Math;
  * P_Student.address /\
  * mutable(gpa) = true /\ optional(gpa) = false /\ min(gpa) = 0.0 /\ max(gpa) = 4.0 /\
  * 
- * @author VuAnh_183
+ * @author Dinh Vu Anh
  * 		https://github.com/VuAnh183/SE_Java
  */
 public class PostgradStudent extends Student{
