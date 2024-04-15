@@ -109,12 +109,12 @@ public class PostgradStudent extends Student{
 	public boolean validateId(int id) {
 		
 		//min
-		if(id < Math.pow(10, 8) + 1) {
+		if(id < (int) (Math.pow(10, 8) + 1)) {
 			return false;
 		}
 		
 		//max
-		if(id > Math.pow(10, 9)) {
+		if(id > (int) (Math.pow(10, 9))) {
 			return false;
 		}
 		
@@ -134,12 +134,12 @@ public class PostgradStudent extends Student{
 	public boolean validateGPA(float gpa) {
 		
 		// min
-		if(gpa < 0.0) {
+		if(gpa < (float) 0.0) {
 			return false;
 		}
 		
 		// max
-		if(gpa > 4.0) {
+		if(gpa > (float) 4.0) {
 			return false;
 		}
 		

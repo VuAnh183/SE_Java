@@ -66,12 +66,12 @@ public class UndergradStudent extends Student{
 	public boolean validateId(int id) {
 		
 		//min
-		if(id < 10e5) {
+		if(id < (int) (Math.pow(10, 5))) {
 			return false;
 		}
 		
 		//max
-		if(id > 10e8) {
+		if(id > (int) (Math.pow(10, 8))) {
 			return false;
 		}
 		
