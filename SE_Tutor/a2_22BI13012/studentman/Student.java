@@ -1,4 +1,4 @@
-package a1_22BI13012;
+package studentman;
 
 import utils.AttrRef;
 import utils.DOpt;
@@ -23,19 +23,19 @@ import utils.OptType;
  * @author Dinh Vu Anh
  * 		https://github.com/VuAnh183/SE_Java
  */
-public class Student implements Comparable{
+public class Student implements Comparable, Document{
 	// attributes
 	@DomainConstraint(mutable = false, optional = false, min = 1, max = 10e9)
-	private int id;
+	protected int id;
 	
 	@DomainConstraint(mutable = true, optional = false, length = 50)
-	private String name;
+	protected String name;
 	
 	@DomainConstraint(mutable = true, optional = false, length = 10)
-	private String phoneNumber;
+	protected String phoneNumber;
 	
 	@DomainConstraint(mutable = true, optional = false, length = 100)
-	private String address;
+	protected String address;
 	
 	// methods
 	// constructor
@@ -78,9 +78,24 @@ public class Student implements Comparable{
 		this.address = address;
 	}
 	
+	
+//	/**
+//     * A default constructor is required to initialize attributes in subclasses with different "id" attributes.
+//     * The subclass checks the given parameters before setting the attributes,
+//     * making it necessary to have a separate constructor for initialization.
+//     */
+//    public Student() {
+//        this.id = 0;
+//        this.name = "";
+//        this.phoneNumber = "";
+//        this.address = "";
+//    }
+    
+    
 	// getters - observers
 	/**
-	 * @effect return <tt>id</tt> 
+	 * @effect 
+	 * 		return ID
 	 */
 	@DOpt(type = OptType.Observer) @AttrRef("id")
 	public int getId() {
@@ -88,7 +103,8 @@ public class Student implements Comparable{
 	}
 	
 	/**
-	 * @effect return <tt>name</tt>
+	 * @effect 
+	 * 		return name
 	 */
 	@DOpt(type = OptType.Observer) @AttrRef("name")
 	public String getName() {
@@ -97,7 +113,8 @@ public class Student implements Comparable{
 	}
 	
 	/**
-	 * @effect return <tt>phoneNumber</tt> 
+	 * @effect 
+	 * 		return phoneNumber
 	 */
 	@DOpt(type = OptType.Observer) @AttrRef("phoneNumber")
 	public String getPhoneNumber() {
@@ -106,7 +123,8 @@ public class Student implements Comparable{
 	}
 	
 	/**
-	 * @effect return <tt>address</tt> 
+	 * @effect 
+	 * 		return address
 	 */
 	@DOpt(type = OptType.Observer) @AttrRef("address")
 	public String getAddress() {
@@ -292,22 +310,6 @@ public class Student implements Comparable{
 		}
 	}
 	
-	// equals
-	@Override
-	public boolean equals(Object student) {
-		if (
-				(student instanceof UndergradStudent) ||
-				(student instanceof PostgradStudent)) {
-			return false;
-		}
-		
-		if (!(student instanceof Student)) {
-			return false;
-		}
-		
-		int yourID = ((Student) student).id;
-		return yourID == this.id;
-	}
 	
 	// toString
 	@DOpt(type = OptType.Default) 
@@ -328,5 +330,19 @@ public class Student implements Comparable{
 		
 		 Student s = (Student) o;
 		return this.name.compareTo(s.name);
+	}
+
+	//toHtmlDoc
+	/**
+	 * @effects String representation for the current object
+	 */
+	@DOpt(type = OptType.Default)
+	@Override
+	public String toHtmlDoc() {
+		// TODO Auto-generated method stub
+		return String.format(
+				"<html>\\n<head><title>Student: %d - %s</title></head>\\n<body>\\n%s %s %s %s\\n</body></html>\",\r\n",
+				id, name, id, name, phoneNumber, address
+				);
 	}
 }

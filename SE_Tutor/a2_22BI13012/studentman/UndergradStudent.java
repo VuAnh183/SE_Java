@@ -1,4 +1,4 @@
-package a1_22BI13012;
+package studentman;
 
 import utils.AttrRef;
 import utils.DOpt;
@@ -87,14 +87,17 @@ public class UndergradStudent extends Student{
 		return "Undergrad" + temp;
 	}
 	
-	//equals
+	//toHtmlDoc
+	/**
+	 * @effects String representation for the current object
+	 */
+	@DOpt(type = OptType.Default)
 	@Override
-	public boolean equals(Object student) {
-		if(!(student instanceof UndergradStudent)) {
-			return false;
-		}
-		
-		int yourID = ((Student) student).getId();
-		return yourID == this.getId();
-	}
+	public String toHtmlDoc() {
+		// TODO Auto-generated method stub
+		return String.format(
+				"<html>\\n<head><title>Student: %d - %s</title></head>\\n<body>\\n%s %s %s %s\\n</body></html>\",\r\n",
+				id, name, id, name, phoneNumber, address
+				);
+	}	
 }
